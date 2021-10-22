@@ -17,7 +17,7 @@ Ejecutar el siguiente codigo de stow:
 ```
 stow */
 ```
-(Esto ejecturá stow tomando como parámetros solo las carpetas).
+(Esto ejecutará stow tomando como parámetros solo las carpetas).
 
 ## ¿Cómo añadir más archivos?
 
