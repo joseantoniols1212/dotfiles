@@ -1,0 +1,30 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+window:
+  opacity: 0.75
+
+  # Window title
+  title: Alacritty
+
+
+# Font configuration
+#mononoki Nerd Font
+#JetBrainsMono Nerd Font Mono
+font:
+  normal:
+    family: JetBrainsMono Nerd Font Mono
+    style: Regular
+
+  bold:
+    family: JetBrainsMono Nerd Font Mono
+    style: Bold
+
+  italic:
+    family: JetBrainsMono Nerd Font Mono
+    style: Italic
+
+  bold_italic:
+    family: JetBrainsMono Nerd Font Mono
+    style: Bold Italic
+
+  size: 11
+
