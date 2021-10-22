@@ -49,10 +49,10 @@ nnoremap ZZ :wq<CR>
 nnoremap zz :wq
 
 " Go to the end of the line
-nnoremap ee $
+nnoremap <Leader>e $
 
 " Go to the beggining of the line
-nnoremap bb 0 
+nnoremap <Leader>b 0
 
 " Close actual buffer whithout closing window
 nnoremap cb :Bclose<CR>
