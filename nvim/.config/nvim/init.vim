@@ -13,3 +13,6 @@ source $HOME/.config/nvim/plug-config/UltiSnips.vim
 
 "Scripts
 source $HOME/.config/nvim/scripts/bclose.vim
+
+"Spell
+source $HOME/.config/nvim/spelling/spell.vim
