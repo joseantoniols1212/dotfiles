@@ -3,7 +3,9 @@
 ## Dependencias
 
 Instalar GNU stow.
-Instalar los programas correspondientes a las configuraciones i3, polybar, nvim, picom, alacritty.
+
+Instalar los programas correspondientes a las configuraciones i3 , polybar, nvim, picom, alacritty.
+Para el fondo de escritorio es necesario instalar feh.
 
 ## Uso
 
@@ -13,7 +15,7 @@ Clonar este repositorio en $HOME.
 git clone https://github.com/joseantoniols1212/dotfiles.git
 ```
 
-Ejecutar el siguiente codigo de stow:
+Ejecutar el siguiente código de stow:
 ```
 stow */
 ```
