@@ -8,10 +8,11 @@ source $HOME/.config/nvim/themes/onedark.vim
 source $HOME/.config/nvim/themes/airline.vim
 
 " Plugin configuration
+source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/UltiSnips.vim
 
+"Utils
 "Scripts
-source $HOME/.config/nvim/scripts/bclose.vim
-
+source $HOME/.config/nvim/utils/scripts/bclose.vim
 "Spell
-source $HOME/.config/nvim/spelling/spell.vim
+source $HOME/.config/nvim/utils/spelling/spell.vim

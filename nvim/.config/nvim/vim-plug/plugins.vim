@@ -35,6 +35,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   " Latex
   Plug 'lervag/vimtex'
 
+  " Coc
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
   " Snippets
   " Track the engine.
   Plug 'SirVer/ultisnips'
