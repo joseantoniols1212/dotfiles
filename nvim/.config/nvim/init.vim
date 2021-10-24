@@ -1,3 +1,14 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" /$$           /$$   /$$                    /$$              
+" |__/          |__/  | $$                   |__/              
+" /$$ /$$$$$$$  /$$ /$$$$$$       /$$    /$$ /$$ /$$$$$$/$$$$ 
+" | $$| $$__  $$| $$|_  $$_/      |  $$  /$$/| $$| $$_  $$_  $$
+" | $$| $$  \ $$| $$  | $$         \  $$/$$/ | $$| $$ \ $$ \ $$
+" | $$| $$  | $$| $$  | $$ /$$      \  $$$/  | $$| $$ | $$ | $$
+" | $$| $$  | $$| $$  |  $$$$/ /$$   \  $/   | $$| $$ | $$ | $$
+" |__/|__/  |__/|__/   \___/  |__/    \_/    |__/|__/ |__/ |__/
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Basic settins
 source $HOME/.config/nvim/vim-plug/plugins.vim
 source $HOME/.config/nvim/general/settings.vim
@@ -11,8 +22,8 @@ source $HOME/.config/nvim/themes/airline.vim
 source $HOME/.config/nvim/plug-config/coc.vim
 source $HOME/.config/nvim/plug-config/UltiSnips.vim
 
-"Utils
-"Scripts
+" Utils
+" Scripts
 source $HOME/.config/nvim/utils/scripts/bclose.vim
-"Spell
+" Spell
 source $HOME/.config/nvim/utils/spelling/spell.vim
