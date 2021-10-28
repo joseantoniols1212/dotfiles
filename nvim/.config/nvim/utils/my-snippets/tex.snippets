@@ -1,6 +1,6 @@
-######################
-#     Matematicas		 #
-######################
+#######################################################################
+#                             Matematicas                             #
+#######################################################################
 
 snippet mm "Modo matematico en texto"
 \( $1 \)
@@ -15,7 +15,15 @@ endsnippet
 snippet R "R^n"
 \mathbb{R}^{${1: }}
 endsnippet
-	
+
+snippet fun "Funcion"
+\( $1 : $2 \to $3, $4 \)
+endsnippet
+
+##############
+#  Analisis  #
+##############
+
 snippet cont "Funcion continua"
 \mathcal{C}(\mathbb{R}^{${1: }}, \mathbb{R}^{${2: }})
 endsnippet
@@ -32,6 +40,10 @@ snippet cauchy "Problema de Cauchy"
 \end{cases}
 endsnippet
 
+#####################################
+#  Teoria de conjuntos / Topologia  #
+#####################################
+
 snippet cup "Union"
 \cup
 endsnippet
@@ -40,6 +52,54 @@ snippet cap "Interseccion"
 \cap
 endsnippet
 
-snippet fun "Funcion"
-\( $1 : $2 \to $3, $4 \)
+snippet bcup "Union numerable"
+\bigcup\limits_{${1:i}=${2:1}}^{${2:\infty}}
+endsnippet
+
+snippet bcap "Interseccion numerable"
+\bigcap\limits_{${1:i}=${2:1}}^{${2:\infty}}
+endsnippet
+
+snippet vacio "Vacio"
+\emptyset
+endsnippet
+
+snippet pt "Para todo"
+\forall
+endsnippet
+
+snippet or "OR logico"
+\lor
+endsnippet
+
+snippet and "AND logico"
+\land
+endsnippet
+
+#####################
+#  Alfabeto griego  #
+#####################
+
+snippet phi 
+\varphi
+endsnippet
+
+snippet theta
+\theta
+endsnippet
+
+snippet alfa
+\alfa
+endsnippet
+
+snippet beta
+\beta
+endsnippet
+
+snippet Beta
+\Beta
+endsnippet
+
+snippet gamma
+\gamma
 endsnippet
