@@ -9,7 +9,7 @@ Para el fondo de escritorio es necesario instalar feh.
 
 ## Documentacion dependencias.
 
-Polybar-spotify: https://github.com/PrayagS/polybar-spotify
+- Polybar-spotify: https://github.com/PrayagS/polybar-spotify
 
   Se trata de un modulo para polybar que indica la cancion actual y permite la navegacion en la playlist.
 
