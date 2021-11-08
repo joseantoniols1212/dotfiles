@@ -93,11 +93,11 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = JetBrainsMono Nerd Font Mono:style=Regular
+font-0 = JetBrainsMono Nerd Font Mono:style=Regular; 2
 font-1 = "monospace;2"
 
 ; modules-left = xworkspaces xwindow
-modules-left = xworkspaces xwindow
+modules-left = xworkspaces spotify spotify-prev spotify-play-pause spotify-next
 modules-right = filesystem pulseaudio xkeyboard memory cpu eth date
 
 cursor-click = pointer
@@ -112,6 +112,7 @@ enable-ipc = true
 ; wm-restack = i3
 
 ; override-redirect = true
+
 [module/xworkspaces]
 type = internal/xworkspaces
 
