@@ -21,8 +21,8 @@ background = #282A2E
 background-alt = #373B41
 foreground = #C5C8C6
 primary = #F0C674
-secondary = #8ABEB7
-alert = #A54242
+secondary = #707880
+alert = #707880
 disabled = #707880
 
 [bar/mybar]
@@ -31,7 +31,7 @@ monitor = DP-0
 
 width = 100%
 height = 2.5%
-radius = 0
+radius-bottom = 15
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -41,20 +41,20 @@ line-size = 3
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
-padding-right = 1
+padding-left = 3
+padding-right = 3
 
 module-margin = 1
 
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = JetBrains Mono Nerd:size=12;2
-font-1 = monospace;2
+font-0 = JetBrainsMono Nerd Font Mono:style=Regular; 2
+font-1 = "monospace;2"
 
 ; modules-left = xworkspaces xwindow
-modules-left = xworkspaces xwindow
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
+modules-left = xworkspaces spotify spotify-prev spotify-play-pause spotify-next
+modules-right = filesystem pulseaudio xkeyboard memory cpu eth date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -75,7 +75,7 @@ monitor = HDMI-0
 
 width = 100%
 height = 2.5%
-radius = 0
+radius-bottom = 15
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -85,20 +85,20 @@ line-size = 3
 border-size = 0
 border-color = #00000000
 
-padding-left = 0
-padding-right = 1
+padding-left = 3
+padding-right = 3
 
 module-margin = 1
 
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = JetBrains Mono Nerd:size=12;2
-font-1 = monospace;2
+font-0 = JetBrainsMono Nerd Font Mono:style=Regular
+font-1 = "monospace;2"
 
 ; modules-left = xworkspaces xwindow
 modules-left = xworkspaces xwindow
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
+modules-right = filesystem pulseaudio xkeyboard memory cpu eth date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -112,7 +112,6 @@ enable-ipc = true
 ; wm-restack = i3
 
 ; override-redirect = true
-
 [module/xworkspaces]
 type = internal/xworkspaces
 
@@ -150,7 +149,7 @@ label-unmounted-foreground = ${colors.disabled}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-prefix = "VOL "
+format-volume-prefix = " "
 format-volume-prefix-foreground = ${colors.primary}
 format-volume = <label-volume>
 
@@ -200,7 +199,7 @@ label-connected = %{F#F0C674}%ifname%%{F-} %essid% %local_ip%
 [module/eth]
 inherit = network-base
 interface-type = wired
-label-connected = %{F#F0C674}%ifname%%{F-} %local_ip%
+label-connected = %local_ip%
 
 [module/date]
 type = internal/date
@@ -211,6 +210,37 @@ date-alt = %Y-%m-%d %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
+
+;------------------------------------------------------------------
+; Modulo spotify
+[module/spotify]
+type = custom/script
+tail = true
+; prefix symbol is shown before the text
+format-prefix = ""
+format = <label>
+exec = ~/.config/polybar/scripts/polybar-spotify/scroll_spotify_status.sh
+label-underline = ${colors.primary}
+
+[module/spotify-prev]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl previous -p spotify
+
+[module/spotify-play-pause]
+type = custom/ipc
+hook-0 = echo ""
+hook-1 = echo ""
+initial = 1
+click-left = playerctl play-pause -p spotify
+
+[module/spotify-next]
+type = custom/script
+exec = echo ""
+format = <label>
+click-left = playerctl next -p spotify
+;------------------------------------------------------------------
 
 [settings]
 screenchange-reload = true
