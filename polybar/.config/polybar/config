@@ -17,10 +17,10 @@
 ;==========================================================
 
 [colors]
-background = #282A2E
+background = #aa282A2E
 background-alt = #373B41
 foreground = #C5C8C6
-primary = #F0C674
+primary = #FFFFFF
 secondary = #707880
 alert = #707880
 disabled = #707880
@@ -31,7 +31,7 @@ monitor = DP-0
 
 width = 100%
 height = 2.5%
-radius-bottom = 15
+radius-bottom = 0
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -41,8 +41,8 @@ line-size = 3
 border-size = 0
 border-color = #00000000
 
-padding-left = 3
-padding-right = 3
+padding-left = 1
+padding-right = 1
 
 module-margin = 1
 
@@ -53,8 +53,8 @@ font-0 = JetBrainsMono Nerd Font Mono:style=Regular; 2
 font-1 = "monospace;2"
 
 ; modules-left = xworkspaces xwindow
-modules-left = xworkspaces spotify spotify-prev spotify-play-pause spotify-next
-modules-right = filesystem pulseaudio xkeyboard memory cpu eth date
+modules-left = i3 spotify spotify-prev spotify-play-pause spotify-next
+modules-right = pulseaudio memory cpu eth date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -65,7 +65,7 @@ enable-ipc = true
 
 ; wm-restack = generic
 ; wm-restack = bspwm
-; wm-restack = i3
+wm-restack = i3
 
 ; override-redirect = true
 
@@ -75,7 +75,7 @@ monitor = HDMI-0
 
 width = 100%
 height = 2.5%
-radius-bottom = 15
+radius-bottom = 0
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -85,8 +85,8 @@ line-size = 3
 border-size = 0
 border-color = #00000000
 
-padding-left = 3
-padding-right = 3
+padding-left = 1
+padding-right = 1
 
 module-margin = 1
 
@@ -97,8 +97,8 @@ font-0 = JetBrainsMono Nerd Font Mono:style=Regular; 2
 font-1 = "monospace;2"
 
 ; modules-left = xworkspaces xwindow
-modules-left = xworkspaces spotify spotify-prev spotify-play-pause spotify-next
-modules-right = filesystem pulseaudio xkeyboard memory cpu eth date
+modules-left = i3 spotify spotify-prev spotify-play-pause spotify-next
+modules-right = pulseaudio memory cpu eth date
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -109,7 +109,7 @@ enable-ipc = true
 
 ; wm-restack = generic
 ; wm-restack = bspwm
-; wm-restack = i3
+wm-restack = i3
 
 ; override-redirect = true
 
@@ -185,6 +185,7 @@ format-prefix = "CPU "
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
 
+
 [network-base]
 type = internal/network
 interval = 5
@@ -211,7 +212,6 @@ date-alt = %Y-%m-%d %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
-
 ;------------------------------------------------------------------
 ; Modulo spotify
 [module/spotify]
@@ -248,3 +248,58 @@ screenchange-reload = true
 pseudo-transparency = true
 
 ; vim:ft=dosini
+
+;------------------------------------------------------------------
+; WORKSPACES
+;------------------------------------------------------------------
+
+[module/i3]
+type = internal/i3
+format = <label-state>
+format-font = 4
+index-sort = true
+wrapping-scroll = false
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;5
+ws-icon-5 = 6;6
+ws-icon-6 = 7;7
+ws-icon-7 = 8;8 
+ws-icon-8 = 9;9
+ws-icon-9 = 10;10
+ws-icon-default =  
+
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.selection}
+
+; focused = Active workspace on focused monitor
+label-focused = "%icon%"
+label-focused-background = ${colors.selection-background}
+label-focused-underline = ${colors.foreground}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-background = ${colors.second-background}
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.error}
+label-urgent-padding = 2
+
+; Separator in between workspaces
+; label-separator = |
+
+;----------------------------------------------------------------
