@@ -16,7 +16,7 @@ source $HOME/.config/nvim/keys/mappings.vim
 
 " Visual themes
 source $HOME/.config/nvim/themes/onedark.vim
-source $HOME/.config/nvim/themes/airline.vim
+source $HOME/.config/nvim/themes/airline.vim                  " Remember to change airline theme when changing vim theme.
 
 " Plugin configuration
 source $HOME/.config/nvim/plug-config/coc.vim
