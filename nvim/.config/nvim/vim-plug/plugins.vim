@@ -19,9 +19,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
 
-  " Auto pairs for '(', '[', '{'
-  Plug 'jiangmiao/auto-pairs'
-
   " Navegador de ficheros
   Plug 'preservim/nerdtree'
 
@@ -41,7 +38,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
   " Snippets
   " Track the engine.
   Plug 'SirVer/ultisnips'
-
   " Snippets are separated from the engine. Add this if you want them:
   Plug 'honza/vim-snippets'
 

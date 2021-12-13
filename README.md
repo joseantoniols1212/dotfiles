@@ -7,6 +7,12 @@ Instalar GNU stow.
 Instalar los programas correspondientes a las configuraciones i3 , polybar, nvim, picom, alacritty.
 Para el fondo de escritorio es necesario instalar feh.
 
+## Documentacion dependencias.
+
+- Polybar-spotify: https://github.com/PrayagS/polybar-spotify
+
+  Se trata de un modulo para polybar que indica la cancion actual y permite la navegacion en la playlist.
+
 ## Uso
 
 Clonar este repositorio en $HOME.
@@ -23,7 +29,8 @@ stow */
 
 ## ¿Cómo añadir más archivos?
 
-Crear carpeta para segmentar los archivos que buscamos añadir. Y simular que dicha carpeta es $HOME, de manera que recreamos el path de donde queremos que se encuentren finalmente los archivos.
+Crear carpeta para segmentar los archivos que buscamos añadir.
+Y simular que dicha carpeta es $HOME, de manera que recreamos el path de donde queremos que se encuentren finalmente los archivos.
 
 Ejemplo:
 
