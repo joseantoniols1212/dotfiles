@@ -1,10 +1,8 @@
 # Configuration for Alacritty, the GPU enhanced terminal emulator.
 window:
-  opacity: 0.75
-
   # Window title
   title: Alacritty
-
+  background_opacity: 0.95
 
 # Font configuration
 #mononoki Nerd Font
