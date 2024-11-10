@@ -25,8 +25,9 @@ instalar_paquete() {
 ########################################
 # Actualizamos repositorios y paquetes
 ########################################
-sudo apt update
-sudo apt upgrade -y
+echo "Actualizando repositorios y paquetes"
+sudo apt update -qq > /dev/null 2>&1
+sudo apt upgrade -y -qq > /dev/null 2>&1
 
 ####################################
 # Instalamos paquetes generales
