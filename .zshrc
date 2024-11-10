@@ -103,7 +103,15 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# SSH configuration
+#############################
+# Aliases
+#############################
+
+alias n="nvim"
+
+#############################
+# Configuracion de ssh-agent
+#############################
 
 echo "Configurando ssh-agent"
 # Automatic inicialization of ssh-agent when login

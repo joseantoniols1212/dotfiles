@@ -22,6 +22,28 @@ instalar_paquete() {
   fi
 }
 
+# Función para crear symlinks con respaldo
+crear_symlink_con_respaldo() {
+  local origen=$1
+  local destino=$2
+
+  # Si el archivo o carpeta ya existe en el destino
+  if [ -e "$destino" ]; then
+    # Hacer un respaldo con el sufijo _old
+    local respaldo="${destino}_old"
+	if [ -e "$respaldo" ]; then
+	  echo "Respaldo de $destino ya existente"
+	else
+	  mv "$destino" "$respaldo"
+      echo "Respaldo creado: $respaldo"
+	fi
+  fi
+
+  # Crear el symlink
+  ln -s "$origen" "$destino"
+  echo "Symlink creado: $destino -> $origen"
+}
+
 ########################################
 # Actualizamos repositorios y paquetes
 ########################################
@@ -32,10 +54,10 @@ sudo apt upgrade -y -qq > /dev/null 2>&1
 ####################################
 # Instalamos paquetes generales
 ####################################
-instalar_paquete git
+instalar_paquete git                         # git
 instalar_paquete curl                        # herramienta para descargar desde internet
 instalar_paquete build-essential             # instala gcc, g++...
-instalar_paquete python3
+instalar_paquete python3                     # python
 instalar_paquete kitty                       # terminal
 instalar_paquete zsh                         # shell
 # Establecemos zsh como shell por defecto
@@ -56,31 +78,27 @@ mkdir -p "$FONT_DIR"
 
 # Descargar la fuente
 echo "Descargando ${FONT_NAME} Nerd Font..."
-curl -L -o "${FONT_NAME}.zip" "$DOWNLOAD_URL"
+curl -s -L -o "${FONT_NAME}.zip" "$DOWNLOAD_URL"
 
 # Verificar si la descarga fue exitosa
 if [ $? -ne 0 ]; then
   echo "Error al descargar la fuente."
-  exit 1
-fi
-
-# Extraer el archivo ZIP
-echo "Extrayendo la fuente..."
-unzip -q "${FONT_NAME}.zip" -d "$FONT_DIR"
-
-# Eliminar el archivo ZIP descargado
-rm "${FONT_NAME}.zip"
-
-# Actualizar la caché de fuentes
-echo "Actualizando la caché de fuentes..."
-fc-cache -fv
-
-# Verificar la instalación
-if fc-list | grep -i "JetBrainsMono" > /dev/null 2>&1; then
-  echo "JetBrains Mono Nerd Font se ha instalado correctamente."
 else
-  echo "Error al instalar JetBrains Mono Nerd Font."
-  exit 1
+  # Extraer el archivo ZIP
+  echo "Extrayendo la fuente..."
+  unzip -q "${FONT_NAME}.zip" -d "$FONT_DIR"  
+  # Eliminar el archivo ZIP descargado
+  rm "${FONT_NAME}.zip"  
+  # Actualizar la caché de fuentes
+  echo "Actualizando la caché de fuentes..."
+  fc-cache -fv &>/dev/null  
+  # Verificar la instalación
+  if fc-list | grep -i "JetBrainsMono" > /dev/null 2>&1; then
+    echo "JetBrains Mono Nerd Font se ha instalado correctamente."
+  else
+    echo "Error al instalar JetBrains Mono Nerd Font."
+    exit 1
+  fi
 fi
 
 ###################
@@ -137,8 +155,14 @@ sudo chsh -s $(which zsh) $USER
 WALLPAPER="oasis-retrowave.png"
 WALLPAPER_PATH="$HOME/dotfiles/wallpapers/$WALLPAPER"
 
-# Cambiar el fondo de pantalla
+# Cambiar el fondo de pantalla (para modo claro y modo oscuro)
 gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
-gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"  # Para tema oscuro (opcional)
+gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
 
-echo "Fondo de pantalla cambiado en GNOME."
+echo "Fondo de pantalla cambiado."
+
+####################
+# Configuraciones
+####################
+crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
+crear_symlink_con_respaldo "$HOME/dotfiles/kitty" "$HOME/.config/kitty"
