@@ -73,33 +73,39 @@ FONT_VERSION="v3.0.2" # Cambia esto si hay una nueva versión disponible
 DOWNLOAD_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/${FONT_NAME}.zip"
 FONT_DIR="$HOME/.local/share/fonts"
 
-# Crear directorio de fuentes si no existe
-mkdir -p "$FONT_DIR"
-
-# Descargar la fuente
-echo "Descargando ${FONT_NAME} Nerd Font..."
-curl -s -L -o "${FONT_NAME}.zip" "$DOWNLOAD_URL"
-
-# Verificar si la descarga fue exitosa
-if [ $? -ne 0 ]; then
-  echo "Error al descargar la fuente."
+# Comprobamos si la fuente esta instalada
+if fc-list | grep -iq "$FONT_NAME"; then
+  echo "Font '$FONT_NAME' is installed."
 else
-  # Extraer el archivo ZIP
-  echo "Extrayendo la fuente..."
-  unzip -q "${FONT_NAME}.zip" -d "$FONT_DIR"  
-  # Eliminar el archivo ZIP descargado
-  rm "${FONT_NAME}.zip"  
-  # Actualizar la caché de fuentes
-  echo "Actualizando la caché de fuentes..."
-  fc-cache -fv &>/dev/null  
-  # Verificar la instalación
-  if fc-list | grep -i "JetBrainsMono" > /dev/null 2>&1; then
-    echo "JetBrains Mono Nerd Font se ha instalado correctamente."
-  else
-    echo "Error al instalar JetBrains Mono Nerd Font."
-    exit 1
-  fi
+	# Crear directorio de fuentes si no existe
+	mkdir -p "$FONT_DIR"
+
+	# Descargar la fuente
+	echo "Descargando ${FONT_NAME} Nerd Font..."
+	curl -s -L -o "${FONT_NAME}.zip" "$DOWNLOAD_URL"
+
+	# Verificar si la descarga fue exitosa
+	if [ $? -ne 0 ]; then
+	  echo "Error al descargar la fuente."
+	else
+	  # Extraer el archivo ZIP
+	  echo "Extrayendo la fuente..."
+	  unzip -q "${FONT_NAME}.zip" -d "$FONT_DIR"  
+	  # Eliminar el archivo ZIP descargado
+	  rm "${FONT_NAME}.zip"  
+	  # Actualizar la caché de fuentes
+	  echo "Actualizando la caché de fuentes..."
+	  fc-cache -fv &>/dev/null  
+	  # Verificar la instalación
+	  if fc-list | grep -i "JetBrainsMono" > /dev/null 2>&1; then
+	    echo "JetBrains Mono Nerd Font se ha instalado correctamente."
+	  else
+	    echo "Error al instalar JetBrains Mono Nerd Font."
+	    exit 1
+	  fi
+	fi
 fi
+
 
 ###################
 # Instalamos nvim
