@@ -166,3 +166,4 @@ echo "Fondo de pantalla cambiado."
 ####################
 crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
 crear_symlink_con_respaldo "$HOME/dotfiles/kitty" "$HOME/.config/kitty"
+crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
