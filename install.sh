@@ -33,9 +33,10 @@ crear_symlink_con_respaldo() {
     local respaldo="${destino}_old"
 	if [ -e "$respaldo" ]; then
 	  echo "Respaldo de $destino ya existente"
+	  rm -r $destino
 	else
 	  mv "$destino" "$respaldo"
-      echo "Respaldo creado: $respaldo"
+          echo "Respaldo creado: $respaldo"
 	fi
   fi
 
@@ -77,7 +78,7 @@ FONT_DIR="$HOME/.local/share/fonts"
 
 # Comprobamos si la fuente esta instalada
 if fc-list | grep -iq "$FONT_NAME"; then
-  echo "Font '$FONT_NAME' is installed."
+  echo "La fuente '$FONT_NAME' ya esta instalada."
 else
 	# Crear directorio de fuentes si no existe
 	mkdir -p "$FONT_DIR"
@@ -155,6 +156,8 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 
   # Cambiar el shell por defecto a zsh manualmente sin interacción
   sudo chsh -s $(which zsh) $USER
+else
+  echo "Oh-my-zsh ya instalado."
 fi 
 
 #########################
