@@ -58,11 +58,13 @@ instalar_paquete git                         # git
 instalar_paquete curl                        # herramienta para descargar desde internet
 instalar_paquete build-essential             # instala gcc, g++...
 instalar_paquete python3                     # python
-instalar_paquete kitty                       # terminal
+instalar_paquete alacritty                   # terminal
 instalar_paquete zsh                         # shell
 # Establecemos zsh como shell por defecto
-echo "Cambiando el shell predeterminado a Zsh..."
-sudo chsh -s $(which zsh) $USER
+if [[ "$SHELL" != *"zsh" ]]; then
+  echo "Cambiando el shell predeterminado a Zsh..."
+  sudo chsh -s $(which zsh) $USER
+fi
 
 ####################################
 # Instalamos Nerd Font Jetbrains
@@ -142,16 +144,18 @@ fi
 # Instalamos oh-my-zsh
 #########################
 
-# Variables para evitar interacciones durante la instalación
-export RUNZSH=no
-export CHSH=no
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  # Variables para evitar interacciones durante la instalación
+  export RUNZSH=no
+  export CHSH=no
 
-# Descargar e instalar Oh My Zsh sin interacción
-echo "Instalando Oh My Zsh de forma silenciosa..."
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  # Descargar e instalar Oh My Zsh sin interacción
+  echo "Instalando Oh My Zsh de forma silenciosa..."
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# Cambiar el shell por defecto a zsh manualmente sin interacción
-sudo chsh -s $(which zsh) $USER
+  # Cambiar el shell por defecto a zsh manualmente sin interacción
+  sudo chsh -s $(which zsh) $USER
+fi 
 
 #########################
 # Fondo de pantalla
@@ -161,15 +165,21 @@ sudo chsh -s $(which zsh) $USER
 WALLPAPER="oasis-retrowave.png"
 WALLPAPER_PATH="$HOME/dotfiles/wallpapers/$WALLPAPER"
 
-# Cambiar el fondo de pantalla (para modo claro y modo oscuro)
-gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
-gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
+if [[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]]; then
+  # Cambiar el fondo de pantalla (para modo claro y modo oscuro)
+  gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
+  gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
 
-echo "Fondo de pantalla cambiado."
+  echo "Fondo de pantalla cambiado."
+else
+  echo "No se puede cambiar el fondo de pantalla. Solo esta soportado el escritorio GNOME."
+fi
+
+
 
 ####################
 # Configuraciones
 ####################
 crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-crear_symlink_con_respaldo "$HOME/dotfiles/kitty" "$HOME/.config/kitty"
+crear_symlink_con_respaldo "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
 crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
