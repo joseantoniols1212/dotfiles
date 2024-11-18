@@ -178,7 +178,37 @@ else
   echo "No se puede cambiar el fondo de pantalla. Solo esta soportado el escritorio GNOME."
 fi
 
+########################
+# Instalar node y npm
+########################
 
+if command -v nvm >/dev/null 2>&1; then
+  echo "nvm ya instalado."
+else
+  echo "Instalando nvm."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+fi
+
+if command -v node >/dev/null 2>&1; then
+  echo "node ya instalado."
+else
+  echo "Instalando node."
+  nvm install 22
+fi
+
+########################
+# Instalar rust y cargo
+########################
+
+if command -v rustc >/dev/null 2>&1; then
+  echo "Rust ya instalado."
+else
+  echo "Instalando Rust."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+fi
+
+# Añadir Rust al PATH para la sesión actual
+source "$HOME/.cargo/env"
 
 ####################
 # Configuraciones
