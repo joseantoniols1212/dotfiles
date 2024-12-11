@@ -61,10 +61,11 @@ instalar_paquete build-essential             # instala gcc, g++...
 instalar_paquete python3                     # python
 instalar_paquete alacritty                   # terminal
 instalar_paquete zsh                         # shell
+instalar_paquete ripgrep                     # dependencia de telescope
 # Establecemos zsh como shell por defecto
 if [[ "$SHELL" != *"zsh" ]]; then
   echo "Cambiando el shell predeterminado a Zsh..."
-  sudo chsh -s $(which zsh) $USER
+  chsh -s $(which zsh) $USER
 fi
 
 ####################################
@@ -216,3 +217,4 @@ source "$HOME/.cargo/env"
 crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
 crear_symlink_con_respaldo "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
 crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+crear_symlink_con_respaldo "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
