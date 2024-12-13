@@ -108,6 +108,7 @@ source $ZSH/oh-my-zsh.sh
 #############################
 
 alias n="nvim"
+alias ls="lsd"
 
 #############################
 # Configuracion de ssh-agent
