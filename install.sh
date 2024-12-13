@@ -174,11 +174,18 @@ if [[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]]; then
   # Cambiar el fondo de pantalla (para modo claro y modo oscuro)
   gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
   gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
-
   echo "Fondo de pantalla cambiado."
 else
   echo "No se puede cambiar el fondo de pantalla. Solo esta soportado el escritorio GNOME."
 fi
+
+####################
+# Configuraciones
+####################
+crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
+crear_symlink_con_respaldo "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
+crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+crear_symlink_con_respaldo "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
 
 ########################
 # Instalar node y npm
@@ -188,7 +195,7 @@ if command -v nvm >/dev/null 2>&1; then
   echo "nvm ya instalado."
 else
   echo "Instalando nvm."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash -s -- --no-modify-zshrc
 fi
 
 if command -v node >/dev/null 2>&1; then
@@ -211,11 +218,3 @@ fi
 
 # Añadir Rust al PATH para la sesión actual
 source "$HOME/.cargo/env"
-
-####################
-# Configuraciones
-####################
-crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-crear_symlink_con_respaldo "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
-crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
-crear_symlink_con_respaldo "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
