@@ -63,6 +63,7 @@ instalar_paquete alacritty                   # terminal
 instalar_paquete zsh                         # shell
 instalar_paquete ripgrep                     # dependencia de telescope
 instalar_paquete lsd                         # sustituto ls
+instalar_paquete xclip                       # clipboard para nvim
 # Establecemos zsh como shell por defecto
 if [[ "$SHELL" != *"zsh" ]]; then
   echo "Cambiando el shell predeterminado a Zsh..."
