@@ -22,24 +22,11 @@ instalar_paquete() {
   fi
 }
 
-# Función para crear symlinks con respaldo
-crear_symlink_con_respaldo() {
+crear_symlink() {
   local origen=$1
   local destino=$2
 
-  # Si el archivo o carpeta ya existe en el destino
-  if [ -e "$destino" ]; then
-    # Hacer un respaldo con el sufijo _old
-    local respaldo="${destino}_old"
-	if [ -e "$respaldo" ]; then
-	  echo "Respaldo de $destino ya existente"
-	  rm -r $destino
-	else
-	  mv "$destino" "$respaldo"
-          echo "Respaldo creado: $respaldo"
-	fi
-  fi
-
+  rm -r $destino
   # Crear el symlink
   ln -s "$origen" "$destino"
   echo "Symlink creado: $destino -> $origen"
@@ -183,10 +170,10 @@ fi
 ####################
 # Configuraciones
 ####################
-crear_symlink_con_respaldo "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-crear_symlink_con_respaldo "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
-crear_symlink_con_respaldo "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
-crear_symlink_con_respaldo "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
+crear_symlink "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
+crear_symlink "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
+crear_symlink "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
+crear_symlink "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
 
 ########################
 # Instalar node y npm
