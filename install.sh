@@ -36,8 +36,8 @@ crear_symlink() {
 # Actualizamos repositorios y paquetes
 ########################################
 echo "Actualizando repositorios y paquetes"
-sudo apt update -qq > /dev/null 2>&1
-sudo apt upgrade -y -qq > /dev/null 2>&1
+sudo apt-get update
+sudo apt-get upgrade
 
 ####################################
 # Instalamos paquetes generales
@@ -48,9 +48,8 @@ instalar_paquete build-essential             # instala gcc, g++...
 instalar_paquete python3                     # python
 instalar_paquete alacritty                   # terminal
 instalar_paquete zsh                         # shell
-instalar_paquete ripgrep                     # dependencia de telescope
 instalar_paquete lsd                         # sustituto ls
-instalar_paquete xclip                       # clipboard para nvim
+instalar_paquete xclip                       # clipboard
 # Establecemos zsh como shell por defecto
 if [[ "$SHELL" != *"zsh" ]]; then
   echo "Cambiando el shell predeterminado a Zsh..."
@@ -99,38 +98,6 @@ else
 	fi
 fi
 
-
-###################
-# Instalamos nvim
-###################
-
-# Versión de Neovim a instalar
-NEOVIM_VERSION="v0.10.2"
-
-if command -v nvim >/dev/null 2>&1; then
-  echo "Neovim ya instalado."
-else
-  echo "Instalando Neovim."
-  # Descargar el archivo comprimido del binario desde GitHub
-  echo "Descargando Neovim $NEOVIM_VERSION..."
-  curl -LO "https://github.com/neovim/neovim/releases/download/$NEOVIM_VERSION/nvim-linux64.tar.gz"  
-  # Extraer el archivo descargado
-  tar -xzf nvim-linux64.tar.gz
-  # Mover el binario a /opt para su uso global
-  sudo mv nvim-linux64 /opt/
-  # Crear enlace simbólico para hacerlo accesible desde cualquier lugar
-  sudo ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/nvim
-  # Limpiar archivos descargados
-  rm nvim-linux64.tar.gz  
-  # Verificar instalación
-  if command -v nvim >/dev/null 2>&1; then
-    echo "Neovim se ha instalado correctamente. Versión:"
-    nvim --version
-  else
-    echo "Hubo un error al instalar Neovim."
-  fi
-fi
-
 #########################
 # Instalamos oh-my-zsh
 #########################
@@ -172,37 +139,4 @@ fi
 ####################
 crear_symlink "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
 crear_symlink "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
-crear_symlink "$HOME/dotfiles/nvim" "$HOME/.config/nvim"
 crear_symlink "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
-
-########################
-# Instalar node y npm
-########################
-
-if command -v nvm >/dev/null 2>&1; then
-  echo "nvm ya instalado."
-else
-  echo "Instalando nvm."
-  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.0/install.sh | bash -s -- --no-modify-zshrc
-fi
-
-if command -v node >/dev/null 2>&1; then
-  echo "node ya instalado."
-else
-  echo "Instalando node."
-  nvm install 22
-fi
-
-########################
-# Instalar rust y cargo
-########################
-
-if command -v rustc >/dev/null 2>&1; then
-  echo "Rust ya instalado."
-else
-  echo "Instalando Rust."
-  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-fi
-
-# Añadir Rust al PATH para la sesión actual
-source "$HOME/.cargo/env"
