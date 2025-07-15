@@ -1,0 +1,8 @@
+show=dmenu
+term=alacritty
+insensitive=true
+allow_markup=true
+prompt=
+hide_scroll=true
+width=500
+lines=10
