@@ -1,142 +1,108 @@
 #!/bin/bash
-# Archivo de instalacion de mi configuracion (para ubuntu)
+# Installing config script (ubuntu)
 
-# Función para comprobar e instalar un paquete por apt
-instalar_paquete() {
+########################
+# Helper functions
+########################
+
+install_package() {
   local PAQUETE=$1
 
   # Comprobar si el paquete ya está instalado
   if dpkg -l | grep -qw "$PAQUETE"; then
-    echo "El paquete '$PAQUETE' ya está instalado."
+    echo "'$PAQUETE' alreday installed."
   else
-    echo "El paquete '$PAQUETE' no está instalado. Procediendo con la instalación..."
+    echo "Installing '$PAQUETE'..."
     sudo apt install -y "$PAQUETE" -qq > /dev/null 2>&1
 
-    # Verificar si la instalación fue exitosa
     if dpkg -l | grep -qw "$PAQUETE"; then
-      echo "El paquete '$PAQUETE' se instaló correctamente."
+      echo "'$PAQUETE' installed successfully."
     else
-      echo "Hubo un problema al instalar el paquete '$PAQUETE'."
+      echo "Error installing '$PAQUETE'."
       return 1
     fi
   fi
 }
 
-crear_symlink() {
-  local origen=$1
-  local destino=$2
-
-  rm -r $destino
-  # Crear el symlink
-  ln -s "$origen" "$destino"
-  echo "Symlink creado: $destino -> $origen"
+create_symlink() {
+  local ORIGIN=$1
+  local DESTINY=$2
+  rm -r $DESTINY
+  ln -s "$ORIGIN" "$DESTINY"
+  echo "Symlink created: $ORIGIN -> $DESTINY"
 }
 
-########################################
-# Actualizamos repositorios y paquetes
-########################################
-echo "Actualizando repositorios y paquetes"
-sudo apt-get update
-sudo apt-get upgrade
 
 ####################################
-# Instalamos paquetes generales
+# Install packages
 ####################################
-instalar_paquete git                         # git
-instalar_paquete curl                        # herramienta para descargar desde internet
-instalar_paquete build-essential             # instala gcc, g++...
-instalar_paquete python3                     # python
-instalar_paquete alacritty                   # terminal
-instalar_paquete zsh                         # shell
-instalar_paquete lsd                         # sustituto ls
-instalar_paquete xclip                       # clipboard
-# Establecemos zsh como shell por defecto
-if [[ "$SHELL" != *"zsh" ]]; then
-  echo "Cambiando el shell predeterminado a Zsh..."
-  chsh -s $(which zsh) $USER
-fi
+echo "Intalling packages"
+sudo apt-get update > /dev/null 2>&1
+sudo apt-get upgrade > /dev/null 2>&1
+
+install_package git                         # git
+install_package curl
+install_package build-essential             # gcc, g++...
+install_package python3                     # python
+install_package alacritty                   # terminal
+install_package zsh                         # shell
+install_package lsd                         # sustituto ls
+install_package xclip                       # clipboard
+install_package sway                        # window tiling manager
+install_package waybar                      # status bar
+install_package wofi                        # app launcher
 
 ####################################
-# Instalamos Nerd Font Jetbrains
+# Nerd Font Jetbrains
 ####################################
 
 FONT_NAME="JetBrainsMono"
-FONT_VERSION="v3.0.2" # Cambia esto si hay una nueva versión disponible
+FONT_VERSION="v3.0.2"
 DOWNLOAD_URL="https://github.com/ryanoasis/nerd-fonts/releases/download/${FONT_VERSION}/${FONT_NAME}.zip"
 FONT_DIR="$HOME/.local/share/fonts"
 
-# Comprobamos si la fuente esta instalada
 if fc-list | grep -iq "$FONT_NAME"; then
-  echo "La fuente '$FONT_NAME' ya esta instalada."
+  echo "'$FONT_NAME' already installed."
 else
-	# Crear directorio de fuentes si no existe
 	mkdir -p "$FONT_DIR"
 
-	# Descargar la fuente
-	echo "Descargando ${FONT_NAME} Nerd Font..."
+	echo "Downloading ${FONT_NAME} Nerd Font..."
 	curl -s -L -o "${FONT_NAME}.zip" "$DOWNLOAD_URL"
 
-	# Verificar si la descarga fue exitosa
 	if [ $? -ne 0 ]; then
-	  echo "Error al descargar la fuente."
+	  echo "Error downloading font."
 	else
-	  # Extraer el archivo ZIP
-	  echo "Extrayendo la fuente..."
+	  echo "Extract font..."
 	  unzip -q "${FONT_NAME}.zip" -d "$FONT_DIR"  
-	  # Eliminar el archivo ZIP descargado
 	  rm "${FONT_NAME}.zip"  
-	  # Actualizar la caché de fuentes
-	  echo "Actualizando la caché de fuentes..."
+	  echo "Update cache font..."
 	  fc-cache -fv &>/dev/null  
-	  # Verificar la instalación
 	  if fc-list | grep -i "JetBrainsMono" > /dev/null 2>&1; then
-	    echo "JetBrains Mono Nerd Font se ha instalado correctamente."
+	    echo "JetBrains Mono Nerd Font correctly installed."
 	  else
-	    echo "Error al instalar JetBrains Mono Nerd Font."
+	    echo "Error installing JetBrains Mono Nerd Font."
 	    exit 1
 	  fi
 	fi
 fi
 
 #########################
-# Instalamos oh-my-zsh
+# Install oh-my-zsh
 #########################
 
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  # Variables para evitar interacciones durante la instalación
   export RUNZSH=no
   export CHSH=no
-
-  # Descargar e instalar Oh My Zsh sin interacción
-  echo "Instalando Oh My Zsh de forma silenciosa..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-
-  # Cambiar el shell por defecto a zsh manualmente sin interacción
   sudo chsh -s $(which zsh) $USER
 else
-  echo "Oh-my-zsh ya instalado."
+  echo "Oh-my-zsh already installed"
 fi 
 
-#########################
-# Fondo de pantalla
-#########################
-
-# Ruta de la imagen que quieres establecer como fondo
-WALLPAPER="oasis-retrowave.png"
-WALLPAPER_PATH="$HOME/dotfiles/wallpapers/$WALLPAPER"
-
-if [[ "$XDG_CURRENT_DESKTOP" == *"GNOME"* ]]; then
-  # Cambiar el fondo de pantalla (para modo claro y modo oscuro)
-  gsettings set org.gnome.desktop.background picture-uri "file://$WALLPAPER_PATH"
-  gsettings set org.gnome.desktop.background picture-uri-dark "file://$WALLPAPER_PATH"
-  echo "Fondo de pantalla cambiado."
-else
-  echo "No se puede cambiar el fondo de pantalla. Solo esta soportado el escritorio GNOME."
-fi
-
 ####################
-# Configuraciones
+# Set configs
 ####################
-crear_symlink "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
-crear_symlink "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
-crear_symlink "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
+create_symlink "$HOME/dotfiles/zsh" "$HOME/.config/zsh"
+create_symlink "$HOME/dotfiles/.zshrc" "$HOME/.zshrc"
+create_symlink "$HOME/dotfiles/alacritty" "$HOME/.config/alacritty"
+create_symlink "$HOME/dotfiles/.gitconfig" "$HOME/.gitconfig"
