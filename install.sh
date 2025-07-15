@@ -6,19 +6,19 @@
 ########################
 
 install_package() {
-  local PAQUETE=$1
+  local PACKAGE=$1
 
   # Comprobar si el paquete ya está instalado
-  if dpkg -l | grep -qw "$PAQUETE"; then
-    echo "'$PAQUETE' alreday installed."
+  if dpkg -l | grep -qw "$PACKAGE"; then
+    echo "'$PACKAGE' alreday installed."
   else
-    echo "Installing '$PAQUETE'..."
-    sudo apt install -y "$PAQUETE" -qq > /dev/null 2>&1
+    echo "Installing '$PACKAGE'..."
+    sudo apt install -y "$PACKAGE" -qq > /dev/null 2>&1
 
-    if dpkg -l | grep -qw "$PAQUETE"; then
-      echo "'$PAQUETE' installed successfully."
+    if dpkg -l | grep -qw "$PACKAGE"; then
+      echo "'$PACKAGE' installed successfully."
     else
-      echo "Error installing '$PAQUETE'."
+      echo "Error installing '$PACKAGE'."
       return 1
     fi
   fi
