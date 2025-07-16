@@ -223,6 +223,12 @@ input "type:keyboard" {
     repeat_rate 40
 }
 
+# Mouse
+
+input "type:mouse" {
+    pointer_accel 0.5
+}
+
 # Clipboard persistance
 exec wl-paste -t text --watch clipman store --no-persist
 
